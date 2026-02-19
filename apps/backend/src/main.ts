@@ -1,8 +1,9 @@
-import { Elysia } from 'elysia';
-import { swagger } from '@elysiajs/swagger';
+import { Hono } from 'hono';
 
-const app = new Elysia().use(swagger()).get('/', () => 'Hello Lena!!');
+const app = new Hono();
 
-app.listen(3000);
+app.get('/', (c) => {
+  return c.text('Hello Hono!');
+});
 
-console.log(`🦊 Lena backend is running on http://localhost:3000`);
+export default app;

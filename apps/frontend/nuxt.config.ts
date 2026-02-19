@@ -11,10 +11,10 @@ export default defineNuxtConfig({
       compilerOptions: {
         baseUrl: '.',
         paths: {
-          '@lena/frontend/*': ['./*'],
-          '@lena/backend/*': ['../backend/src/*'],
-          '@lena/database/*': ['../../packages/database/src/*'],
-          '@lena/config/*': ['../../packages/config/src/*'],
+          '@artezia/frontend/*': ['./*'],
+          '@artezia/backend/*': ['../backend/src/*'],
+          '@artezia/database/*': ['../../packages/database/src/*'],
+          '@artezia/config/*': ['../../packages/config/src/*'],
 
           '#app': ['./.nuxt/app'],
           '#imports': ['./.nuxt/imports'],

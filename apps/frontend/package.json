@@ -1,5 +1,5 @@
 {
-  "name": "@lena/frontend",
+  "name": "@artezia/frontend",
   "type": "module",
   "private": true,
   "scripts": {

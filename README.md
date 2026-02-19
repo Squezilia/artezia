@@ -1,6 +1,6 @@
-# Lena Monorepo
+# Artezia Monorepo
 
-Lena is a small, opinionated monorepo boilerplate built around:
+Artezia is a small, opinionated monorepo boilerplate built around:
 
 - Bun + Elysia for the backend
 - Nuxt 4 for the frontend
@@ -12,8 +12,8 @@ This repo is intended as a starting point for full‑stack apps with a clear sep
 
 - `apps/backend` – Bun/Elysia HTTP API with Swagger docs
 - `apps/frontend` – Nuxt 4 app
-- `packages/database` – Prisma schema and client wrapper (`@lena/database`)
-- `packages/config` – Centralized TypeScript + ESLint configs and runtime config (`@lena/config`)
+- `packages/database` – Prisma schema and client wrapper (`@artezia/database`)
+- `packages/config` – Centralized TypeScript + ESLint configs and runtime config (`@artezia/config`)
 
 The root `package.json` uses workspaces to tie everything together.
 
@@ -26,7 +26,7 @@ The root `package.json` uses workspaces to tie everything together.
 
 Features:
 
-- `GET /` – returns `Hello Lena!!`
+- `GET /` – returns `Hello Artezia!!`
 - Swagger documentation is served via the Swagger plugin.
 
 Development:
@@ -59,7 +59,7 @@ The dev server will start on the port configured by Nuxt (typically `http://loca
 
 ## Packages
 
-### `@lena/database` (`packages/database`)
+### `@artezia/database` (`packages/database`)
 
 - Holds the Prisma schema (`packages/database/prisma/schema.prisma`).
 - Exposes a typed Prisma client and helper:
@@ -68,7 +68,7 @@ The dev server will start on the port configured by Nuxt (typically `http://loca
 
 This keeps all database concerns out of the backend app itself.
 
-### `@lena/config` (`packages/config`)
+### `@artezia/config` (`packages/config`)
 
 - Central place for:
   - Shared TypeScript base config (`tsconfig.base.json`)
@@ -90,7 +90,7 @@ From the repo root:
 - `bun run database:generate` – run `prisma generate` using `packages/database/prisma/schema.prisma`
 - `bun run database:push` – push Prisma schema to the database
 - `bun run database:pull` – introspect database into Prisma schema
-- `bun run lint` – run ESLint using the shared config in `@lena/config`
+- `bun run lint` – run ESLint using the shared config in `@artezia/config`
 
 ## Getting Started
 
@@ -101,8 +101,7 @@ From the repo root:
    ```
 
 2. Set up your environment:
-
-   - Create `.env` with any vars you need, especially `DATABASE_URL` for Prisma in `@lena/database`.
+   - Create `.env` with any vars you need, especially `DATABASE_URL` for Prisma in `@artezia/database`.
 
 3. (Optional) Sync the database schema:
 
@@ -117,4 +116,4 @@ From the repo root:
    bun run frontend:dev
    ```
 
-You can now iterate on backend, frontend, and shared packages within a single monorepo, with all tooling and config centralized in `@lena/config`. 
+You can now iterate on backend, frontend, and shared packages within a single monorepo, with all tooling and config centralized in `@artezia/config`.
