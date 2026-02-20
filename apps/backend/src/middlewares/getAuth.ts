@@ -1,36 +1,22 @@
-import type { User } from '@artezia/database/generated/prisma/client';
-import { getCookie } from 'hono/cookie';
+import { auth } from '../lib/auth';
 import { createMiddleware } from 'hono/factory';
-import { SESSION_COOKIE } from '..';
-import { createHash } from 'node:crypto';
-import prisma from '@artezia/database';
-import { MappedPrismaError, mapPrismaError } from '../lib/error';
 
-export default createMiddleware<{ Variables: { user?: User } }>(
-  async (c, next) => {
-    const sessionKey = getCookie(c, SESSION_COOKIE);
-    if (!sessionKey) return await next();
+export default createMiddleware<{
+  Variables: {
+    user: typeof auth.$Infer.Session.user | null;
+    session: typeof auth.$Infer.Session.session | null;
+  };
+}>(async (c, next) => {
+  const session = await auth.api.getSession({ headers: c.req.raw.headers });
 
-    // find session that matches and active
-    const session = await prisma.session
-      .findFirst({
-        where: {
-          key: createHash('sha256', Buffer.from(sessionKey)).digest('hex'),
-          endedAt: {
-            gte: new Date(),
-          },
-        },
-        include: {
-          user: true,
-        },
-      })
-      .catch(mapPrismaError);
-
-    if (session instanceof MappedPrismaError)
-      return c.json(session.response, session.status);
-
-    if (!session) return await next();
-
-    c.set('user', session.user);
+  if (!session) {
+    c.set('user', null);
+    c.set('session', null);
+    await next();
+    return;
   }
-);
+
+  c.set('user', session.user);
+  c.set('session', session.session);
+  await next();
+});

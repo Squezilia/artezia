@@ -10,6 +10,10 @@
  */
 export type * from './models/User.ts'
 export type * from './models/Session.ts'
+export type * from './models/Account.ts'
+export type * from './models/Verification.ts'
+export type * from './models/Apikey.ts'
+export type * from './models/TwoFactor.ts'
 export type * from './models/VirtualMachine.ts'
 export type * from './models/Container.ts'
 export type * from './commonInputTypes.ts'

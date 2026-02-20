@@ -14,6 +14,7 @@
     "@rcmade/hono-docs": "^1.0.31",
     "@scalar/hono-api-reference": "^0.9.44",
     "argon2": "^0.44.0",
+    "better-auth": "^1.4.18",
     "date-fns": "^4.1.0",
     "hono": "^4.12.0",
     "pino": "^10.1.0",

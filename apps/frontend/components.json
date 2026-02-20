@@ -1,0 +1,21 @@
+{
+  "$schema": "https://shadcn-vue.com/schema.json",
+  "style": "new-york",
+  "typescript": true,
+  "tailwind": {
+    "config": "",
+    "css": "app/assets/css/tailwind.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@artezia/frontend/components",
+    "utils": "@artezia/frontend/lib/utils",
+    "ui": "@artezia/frontend/components/ui",
+    "lib": "@artezia/frontend/lib",
+    "composables": "@artezia/frontend/composables"
+  },
+  "registries": {}
+}

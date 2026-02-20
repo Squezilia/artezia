@@ -1,9 +1,11 @@
+import getAuth from '@artezia/backend/middlewares/getAuth';
 import { Hono } from 'hono';
 
 export default new Hono()
+  .use(getAuth)
   // TODO: Implement create endpoint
-  .post('/create', ({ status, json, body, req }) => {
-    return json('not implemented', 501);
+  .post('/create', (c) => {
+    return c.json('not implemented', 501);
   })
   // TODO: Implement delete endpoint
   .delete('/delete', ({ status, json, body, req }) => {

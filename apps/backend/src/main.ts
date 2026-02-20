@@ -1,14 +1,26 @@
 import { Hono } from 'hono';
-import auth from './routes/auth';
 import core from './routes/core';
 import docs from './routes/docs';
 import { appendTrailingSlash } from 'hono/trailing-slash';
+import { auth } from './lib/auth';
+import { cors } from 'hono/cors';
 
 const app = new Hono()
+  .use(
+    '*',
+    cors({
+      origin: '*',
+      allowHeaders: ['Content-Type', 'Authorization'],
+      allowMethods: ['POST', 'GET', 'OPTIONS'],
+      exposeHeaders: ['Content-Length'],
+      maxAge: 600,
+      credentials: true,
+    })
+  )
   .use(appendTrailingSlash())
   .get('/', (c) => c.json('not implemented', 501))
+  .on(['POST', 'GET'], '/api/auth/*', (c) => auth.handler(c.req.raw))
   .route('/docs', docs)
-  .route('/auth', auth)
   .route('/core', core);
 
 export type AppType = typeof app;
