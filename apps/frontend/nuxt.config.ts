@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     '@nuxt/image',
     'shadcn-nuxt',
+    '@nuxt/icon',
   ],
 
   typescript: {
@@ -59,5 +60,39 @@ export default defineNuxtConfig({
      * @default "@/components/ui"
      */
     componentDir: '@/components/ui',
+  },
+
+  icon: {
+    mode: 'svg',
+  },
+
+  fonts: {
+    provider: 'google',
+    families: [
+      {
+        name: 'DM Sans',
+        provider: 'google',
+        fallbacks: [
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+        ],
+        weights: ['300', '400', '500', '600', '700', '800', '900'],
+      },
+      {
+        name: 'Geist',
+        provider: 'google',
+        fallbacks: [
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+        ],
+        weights: ['300', '400', '500', '600', '700', '800', '900'],
+      },
+    ],
   },
 });
