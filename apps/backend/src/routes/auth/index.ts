@@ -9,8 +9,18 @@ import { setCookie } from 'hono/cookie';
 import { LIMIT_ACTIVE_SESSION, SESSION_COOKIE, SESSION_DURATION } from '../..';
 import { randomBytes, hash, createHash } from 'node:crypto';
 
+const RegisterBodySchema = z.object({
+  name: z.string().min(3).max(32).nonempty().nonoptional(),
+  email: z.email().nonempty().nonoptional(),
+  password: z
+    .string()
+    .regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{8,}$/)
+    .nonempty()
+    .nonoptional(),
+});
+
 const LoginBodySchema = z.object({
-  username: z.string().min(3).max(32).nonempty().nonoptional(),
+  email: z.email().nonempty().nonoptional(),
   password: z
     .string()
     .regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.]).{8,}$/)
@@ -21,6 +31,31 @@ const LoginBodySchema = z.object({
 const RenewBodySchema = z.object({});
 
 const app = new Hono()
+  .post(
+    '/register',
+    zValidator('json', RegisterBodySchema, ({ success }, { json }) => {
+      if (!success) json('bad request', 400);
+    }),
+    async (c) => {
+      const body = c.req.valid('json');
+
+      // create user
+      const user = await prisma.user
+        .create({
+          data: {
+            email: body.email,
+            name: body.name,
+            password: await argon2.hash(body.password),
+          },
+        })
+        .catch(mapPrismaError);
+
+      if (user instanceof MappedPrismaError)
+        return c.json(user.response, user.status);
+
+      c.json(user, 201);
+    }
+  )
   .post(
     '/login',
     zValidator('json', LoginBodySchema, ({ success }, { json }) => {
@@ -33,7 +68,7 @@ const app = new Hono()
       const user = await prisma.user
         .findFirst({
           where: {
-            name: body.username,
+            email: body.email,
           },
         })
         .catch(mapPrismaError);
